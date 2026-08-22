@@ -10,33 +10,77 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SolutionsIndexRouteImport } from './routes/solutions.index'
+import { Route as SolutionsCategoryIndexRouteImport } from './routes/solutions.$category.index'
+import { Route as SolutionsCategoryEquipmentRouteImport } from './routes/solutions.$category.$equipment'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SolutionsIndexRoute = SolutionsIndexRouteImport.update({
+  id: '/solutions/',
+  path: '/solutions/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SolutionsCategoryIndexRoute = SolutionsCategoryIndexRouteImport.update({
+  id: '/solutions/$category/',
+  path: '/solutions/$category/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SolutionsCategoryEquipmentRoute =
+  SolutionsCategoryEquipmentRouteImport.update({
+    id: '/solutions/$category/$equipment',
+    path: '/solutions/$category/$equipment',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/solutions/': typeof SolutionsIndexRoute
+  '/solutions/$category/$equipment': typeof SolutionsCategoryEquipmentRoute
+  '/solutions/$category/': typeof SolutionsCategoryIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/solutions': typeof SolutionsIndexRoute
+  '/solutions/$category/$equipment': typeof SolutionsCategoryEquipmentRoute
+  '/solutions/$category': typeof SolutionsCategoryIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/solutions/': typeof SolutionsIndexRoute
+  '/solutions/$category/$equipment': typeof SolutionsCategoryEquipmentRoute
+  '/solutions/$category/': typeof SolutionsCategoryIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/solutions/'
+    | '/solutions/$category/$equipment'
+    | '/solutions/$category/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/solutions'
+    | '/solutions/$category/$equipment'
+    | '/solutions/$category'
+  id:
+    | '__root__'
+    | '/'
+    | '/solutions/'
+    | '/solutions/$category/$equipment'
+    | '/solutions/$category/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  SolutionsIndexRoute: typeof SolutionsIndexRoute
+  SolutionsCategoryEquipmentRoute: typeof SolutionsCategoryEquipmentRoute
+  SolutionsCategoryIndexRoute: typeof SolutionsCategoryIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +92,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/solutions/': {
+      id: '/solutions/'
+      path: '/solutions'
+      fullPath: '/solutions/'
+      preLoaderRoute: typeof SolutionsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/solutions/$category/': {
+      id: '/solutions/$category/'
+      path: '/solutions/$category'
+      fullPath: '/solutions/$category/'
+      preLoaderRoute: typeof SolutionsCategoryIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/solutions/$category/$equipment': {
+      id: '/solutions/$category/$equipment'
+      path: '/solutions/$category/$equipment'
+      fullPath: '/solutions/$category/$equipment'
+      preLoaderRoute: typeof SolutionsCategoryEquipmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SolutionsIndexRoute: SolutionsIndexRoute,
+  SolutionsCategoryEquipmentRoute: SolutionsCategoryEquipmentRoute,
+  SolutionsCategoryIndexRoute: SolutionsCategoryIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
