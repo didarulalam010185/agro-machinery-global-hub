@@ -62,13 +62,14 @@ function build(
   image: string,
   raw: RawItem[],
 ): SolutionCategory {
+  const catImage = pdfPhoto(`sol-${letter}.jpg`) ?? image;
   return {
     letter,
     slug,
     title,
     tagline,
     intro,
-    image,
+    image: catImage,
     items: raw.map(([t, summary, details, highlights], i) => ({
       slug: slugify(t),
       no: i + 1,
@@ -76,9 +77,11 @@ function build(
       summary,
       details,
       highlights,
+      image: pdfPhoto(`sol-${letter}-${i + 1}.jpg`) ?? catImage,
     })),
   };
 }
+
 
 const TURNKEY = [
   "Feasibility study, capacity planning and plant layout in 3D",
