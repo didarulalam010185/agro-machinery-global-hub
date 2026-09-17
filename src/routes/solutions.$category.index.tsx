@@ -69,12 +69,21 @@ function CategoryPage() {
                 <span className="ml-2 flex h-11 w-11 shrink-0 items-center justify-center bg-secondary font-display font-bold text-secondary-foreground group-hover:bg-primary group-hover:text-primary-foreground">
                   {item.no}
                 </span>
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  loading="lazy"
+                  width={320}
+                  height={200}
+                  className="h-20 w-32 shrink-0 object-cover ring-1 ring-border"
+                />
                 <span className="flex-1">
                   <span className="block font-display text-lg font-bold group-hover:text-primary">
                     {item.title}
                   </span>
                   <span className="mt-1 block text-sm text-muted-foreground">{item.summary}</span>
                 </span>
+
                 <ChevronRight className="mr-2 h-5 w-5 text-accent" />
               </Link>
             </li>
