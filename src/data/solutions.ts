@@ -12,6 +12,16 @@ import energy from "@/assets/sol-energy.jpg";
 import plastic from "@/assets/sol-plastic.jpg";
 import steel from "@/assets/sol-steel.jpg";
 
+// Photos extracted from the official AgroMachGlobal solutions document (CDN assets).
+const pdfPointers = import.meta.glob<{ default: { url: string } }>(
+  "../assets/solutions/*.asset.json",
+  { eager: true },
+);
+const pdfPhoto = (file: string): string | undefined => {
+  const entry = Object.entries(pdfPointers).find(([path]) => path.endsWith(`/${file}`));
+  return entry?.[1]?.default?.url;
+};
+
 export type Equipment = {
   slug: string;
   no: number;
@@ -19,7 +29,9 @@ export type Equipment = {
   summary: string;
   details: string[];
   highlights: string[];
+  image: string;
 };
+
 
 export type SolutionCategory = {
   letter: string;
