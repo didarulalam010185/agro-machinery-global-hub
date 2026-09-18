@@ -13,14 +13,10 @@ import plastic from "@/assets/sol-plastic.jpg";
 import steel from "@/assets/sol-steel.jpg";
 
 // Photos extracted from the official AgroMachGlobal solutions document (CDN assets).
-const pdfPointers = import.meta.glob<{ default: { url: string } }>(
-  "../assets/solutions/*.asset.json",
-  { eager: true },
-);
-const pdfPhoto = (file: string): string | undefined => {
-  const entry = Object.entries(pdfPointers).find(([path]) => path.endsWith(`/${file}`));
-  return entry?.[1]?.default?.url;
-};
+import { solutionPhotos } from "./solution-photos";
+
+const pdfPhoto = (file: string): string | undefined => solutionPhotos[file];
+
 
 export type Equipment = {
   slug: string;
