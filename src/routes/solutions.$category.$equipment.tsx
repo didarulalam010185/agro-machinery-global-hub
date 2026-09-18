@@ -88,13 +88,14 @@ function EquipmentPage() {
 
         <aside>
           <img
-            src={cat.image}
+            src={item.image}
             alt={item.title}
             loading="lazy"
             width={1280}
             height={720}
             className="w-full object-cover ring-1 ring-border"
           />
+
           <div className="mt-8 bg-card p-6 ring-1 ring-border">
             <h2 className="eyebrow text-accent">More in {cat.letter}. {cat.title.replace(" Solution", "")}</h2>
             <ul className="mt-4 space-y-3">
